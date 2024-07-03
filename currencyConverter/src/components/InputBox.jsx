@@ -1,3 +1,4 @@
+// rfce command
 import React, { useId } from "react";
 
 function InputBox({
@@ -30,7 +31,7 @@ function InputBox({
           disabled={amountDisable}
           value={amount}
           onChange={(e) =>
-            onAmountChange && onAmountChange(Number(e.target.value))
+            onAmountChange && onAmountChange(Number(e.target.value)) //IMP Concept
           }
         />
       </div>
@@ -42,8 +43,8 @@ function InputBox({
           onChange={(e) => onCurrencyChange && onCurrencyChange(e.target.value)}
           disabled={currencyDisable}
         >
-          {currencyOptions.map((cur) => (
-            <option key={cur} value={cur}>
+          {currencyOptions.map((cur) => ( //Remember the key in loops
+            <option key={cur} value={cur}> 
               {cur}
             </option>
           ))}

@@ -14,7 +14,7 @@ function useCurrencyInfo(currency) {
                 console.error("Error fetching currency data:", error); // Proper error handling
             });
     }, [currency]);
-
+ 
     return data;
 }
 
