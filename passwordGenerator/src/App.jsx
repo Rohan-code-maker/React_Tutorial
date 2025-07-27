@@ -36,18 +36,22 @@ function App() {
 
   return (
     <>
-      <div className="w-full max-w-md mx-auto shadow-md rounded-lg px-4 my-8 text-orange-500 bg-gray-700">
-        <div>
+      <div className="w-full max-w-md mx-auto shadow-md rounded-lg px-4 my-8 py-3 text-orange-500 bg-gray-700">
+        <div className="">
           <input type="text" value={password} placeholder="password" readOnly
           ref={passwordRef}
+          className="w-4/5 py-1 rounded-l-lg border border-gray-300"
           />
-          <button onClick={copyPassword}>copy</button>
+          <button 
+          className="px-4 py-1 rounded-r-lg bg-blue-500 text-white hover:bg-blue-600"
+          onClick={copyPassword}
+          >copy</button>
         </div>
-        <div>
+        <div className="flex gap-3 pt-3">
           <div>
             <input
             onChange={(e) => {setLength(e.target.value)}}
-             type="range" min={6} max={100} value={{length}} className="cursor-pointer" />
+             type="range" min={6} max={100} value={length} className="cursor-pointer" />
             <label htmlFor="">Length:{length}</label>
           </div>
           <div>
