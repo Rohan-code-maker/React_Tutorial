@@ -10,22 +10,40 @@ function HabitList() {
 
     const today = new Date().toISOString().split("T")[0];
 
-    const getStreak =(habit: Habit) => {
+    const getStreak = (habit: Habit) => {
         let streak = 0;
         const currentDate = new Date();
-        while(true){
+        while (true) {
             const dateString = currentDate.toISOString().split("T")[0];
-            if(habit.completedDates.includes(dateString)){
+            if (habit.completedDates.includes(dateString)) {
                 streak++;
-                currentDate.setDate(currentDate.getDate() -1);
-            }else{
+                currentDate.setDate(currentDate.getDate() - 1);
+            } else {
                 break;
             }
         }
         return streak;
     };
 
-    return <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 4 }}>
+    const completedToday = () => {
+        return habits.reduce((count, habit) => {
+            return habit.completedDates.includes(today) ? count + 1 : count;
+        }, 0);
+    };
+
+    const getLongestStreak = () => {
+        let prev;
+        let long = 0;
+        habits.forEach((habit) => {
+            prev = getStreak(habit)
+            if (prev > long) {
+                long = prev;
+            }
+        })
+        return long;
+    }
+
+    return <><Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 4 , mb:2}}>
         {habits.map((habit) => (
             <Paper key={habit.id} elevation={2} sx={{ p: 2 }}><Grid container alignItems="center">
                 <Grid>
@@ -46,15 +64,24 @@ function HabitList() {
                     </Box>
                 </Grid>
             </Grid>
-            <Box sx={{mt:2}}>
-                <Typography>Current Streak : {getStreak(habit)}</Typography>
-                <LinearProgress variant="determinate" value={(getStreak(habit)/30) * 100}
-                sx={{mt:3}}
-                />
-            </Box>
+                <Box sx={{ mt: 2 }}>
+                    <Typography>Current Streak : {getStreak(habit)}</Typography>
+                    <LinearProgress variant="determinate" value={(getStreak(habit) / 30) * 100}
+                        sx={{ mt: 3 }}
+                    />
+                </Box>
             </Paper>
         ))}
     </Box>
+        <Paper elevation={2} sx={{ p: 2 }}><Grid container alignItems="center"></Grid>
+            <Box>
+                <Typography>Habits Statistics</Typography>
+                <Typography>Total Habits: {habits.length}</Typography>
+                <Typography>Completed Today: {completedToday()}</Typography>
+                <Typography>Longest Streak: {getLongestStreak()}</Typography>
+            </Box>
+        </Paper>
+    </>
 }
 
 export default HabitList
